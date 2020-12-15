@@ -9,7 +9,7 @@ public interface EntryService {
 
 	ResponseObject saveEntrylog(Entrylog entrylog);
 
-	ResponseObject listByFilters(Integer moodId, String description, LocalDateTime initialDateTime, LocalDateTime finalDateTime);
+	ResponseObject listByFilters(Integer moodId, String description, LocalDateTime initialDateTime, LocalDateTime finalDateTime, Integer page, Integer pageSize);
 
 	ResponseObject deleteEntrylog(Integer id);
 

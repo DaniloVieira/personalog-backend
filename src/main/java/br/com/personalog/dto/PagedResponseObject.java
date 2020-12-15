@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PagedResponseObject<T extends Collection> extends ResponseObject<T>{
+public class PagedResponseObject<T extends Collection> extends ResponseObject<T> {
 
 	private T value;
 	private Integer currentPage;
@@ -19,17 +19,17 @@ public class PagedResponseObject<T extends Collection> extends ResponseObject<T>
 		this.value = value;
 	}
 
-	public PagedResponseObject<T> currentPage(Integer currentPage){
+	public PagedResponseObject<T> currentPage(Integer currentPage) {
 		this.currentPage = currentPage;
 		return this;
 	}
 
-	public PagedResponseObject<T> pageSize(Integer pageSize){
+	public PagedResponseObject<T> pageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 		return this;
 	}
 
-	public PagedResponseObject<T> totalSize(Integer totalSize){
+	public PagedResponseObject<T> totalSize(Integer totalSize) {
 		this.totalSize = totalSize;
 		return this;
 	}
@@ -46,7 +46,7 @@ public class PagedResponseObject<T extends Collection> extends ResponseObject<T>
 		return currentPage.intValue() * pageSize.intValue() < totalSize.intValue();
 	}
 
-	public String getType(){
+	public String getType() {
 		return value != null ? "_" + value.getClass().getSimpleName().toLowerCase() : null;
 	}
 

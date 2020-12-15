@@ -9,23 +9,23 @@ public abstract class ResponseObject<T> {
 	private String cause;
 	private Exception e;
 
-	public ResponseObject<T> message (String message){
+	public ResponseObject<T> message(String message) {
 		this.message = message;
 		return this;
 	}
 
-	public ResponseObject<T> cause (String cause){
+	public ResponseObject<T> cause(String cause) {
 		this.cause = cause;
 		return this;
 	}
 
-	public ResponseObject<T> exception(Exception e){
+	public ResponseObject<T> exception(Exception e) {
 		this.e = e;
 		return this;
 	}
 
-//	public String getType(){
-//		return value != null ? "_" + value.getClass().getSimpleName().toLowerCase() : null;
-//	}
+	//	public String getType(){
+	//		return value != null ? "_" + value.getClass().getSimpleName().toLowerCase() : null;
+	//	}
 
 }

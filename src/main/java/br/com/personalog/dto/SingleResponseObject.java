@@ -13,7 +13,7 @@ public class SingleResponseObject<T> extends ResponseObject<T> {
 		this.value = value;
 	}
 
-	public String getType(){
+	public String getType() {
 		return value != null ? "_" + value.getClass().getSimpleName().toLowerCase() : null;
 	}
 

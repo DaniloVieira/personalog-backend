@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-<!--			<version>1.4.200</version>-->
+			<!--			<version>1.4.200</version>-->
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -45,9 +45,9 @@
 			<scope>test</scope>
 		</dependency>
 
-<!--
-	:::::::::::LOMBOK:::::::::::
--->
+		<!--
+			:::::::::::LOMBOK:::::::::::
+		-->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -55,9 +55,9 @@
 			<scope>provided</scope>
 		</dependency>
 
-<!--
-	:::::::::::APACHE COMMONS:::::::::::
--->
+		<!--
+			:::::::::::APACHE COMMONS:::::::::::
+		-->
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -65,14 +65,14 @@
 			<version>3.8</version>
 		</dependency>
 
-<!--
-	:::::::::::JAKSON DATA TYPE:::::::::::
--->
+		<!--
+			:::::::::::JAKSON DATA TYPE:::::::::::
+		-->
 
-<!--		<dependency>-->
-<!--			<groupId>com.fasterxml.jackson.datatype</groupId>-->
-<!--			<artifactId>jackson-datatype-jsr310</artifactId>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>com.fasterxml.jackson.datatype</groupId>-->
+		<!--			<artifactId>jackson-datatype-jsr310</artifactId>-->
+		<!--		</dependency>-->
 
 	</dependencies>
 

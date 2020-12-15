@@ -3,7 +3,6 @@ package br.com.personalog.rest.endpoint;
 import java.time.LocalDateTime;
 
 import br.com.personalog.dto.ResponseObject;
-import br.com.personalog.dto.SingleResponseObject;
 import br.com.personalog.model.Entrylog;
 import br.com.personalog.service.EntryService;
 import lombok.NonNull;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ResponseBody
 //@CrossOrigin("${permited-origin}") // opção de CORS com arquivo de configuracao
-@RequestMapping(value =  "/entry-log/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/entry-log/", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class EntrylogEndpoint {
 
@@ -34,39 +33,41 @@ public class EntrylogEndpoint {
 	private EntryService entryservice;
 
 	@PostMapping("save")
-	public ResponseEntity<ResponseObject> saveEntry (@RequestBody Entrylog entryLog){
+	public ResponseEntity<ResponseObject> saveEntry(@RequestBody Entrylog entryLog) {
 		return createResponse(entryservice.saveEntrylog(entryLog));
 	}
 
 	@PutMapping("save")
-	public ResponseEntity<ResponseObject> updateEntry (@RequestBody Entrylog entryLog){
+	public ResponseEntity<ResponseObject> updateEntry(@RequestBody Entrylog entryLog) {
 		return createResponse(entryservice.saveEntrylog(entryLog));
 	}
 
 	@GetMapping("listall")
-	public ResponseEntity<ResponseObject> listAll(){
+	public ResponseEntity<ResponseObject> listAll() {
 		return createResponse(entryservice.listAll());
 	}
 
 	@GetMapping("list")
 	public ResponseEntity<ResponseObject> list(
-		@RequestParam(name = "mood",      required = false) Integer moodId,
-		@RequestParam(name = "desc",      required = false) String descrition,
+		@RequestParam(name = "page", required = true) Integer page,
+		@RequestParam(name = "pageSize", required = true) Integer pageSize,
+		@RequestParam(name = "mood", required = false) Integer moodId,
+		@RequestParam(name = "desc", required = false) String descrition,
 		@RequestParam(name = "iniDtTime", required = false)
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-		LocalDateTime initialDateTime,
+			LocalDateTime initialDateTime,
 		@RequestParam(name = "fnlDtTime", required = false)
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-		LocalDateTime finalDateTime){
-		return createResponse(entryservice.listByFilters(moodId, descrition, initialDateTime, finalDateTime));
+			LocalDateTime finalDateTime) {
+		return createResponse(entryservice.listByFilters(moodId, descrition, initialDateTime, finalDateTime, page, pageSize));
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<ResponseObject> deleteEntry(@PathVariable Integer id){
+	public ResponseEntity<ResponseObject> deleteEntry(@PathVariable Integer id) {
 		return createResponse(entryservice.deleteEntrylog(id));
 	}
 
-	private ResponseEntity<ResponseObject> createResponse (ResponseObject response){
+	private ResponseEntity<ResponseObject> createResponse(ResponseObject response) {
 
 		HttpStatus httpStatus = getStatus(response);
 
