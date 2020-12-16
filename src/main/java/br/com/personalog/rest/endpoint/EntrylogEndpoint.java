@@ -2,6 +2,8 @@ package br.com.personalog.rest.endpoint;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Positive;
+
 import br.com.personalog.dto.ResponseObject;
 import br.com.personalog.model.Entrylog;
 import br.com.personalog.service.EntryService;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import static br.com.personalog.rest.endpoint.ResponseUtil.createResponse;
 
 @RestController
 @ResponseBody
@@ -29,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EntrylogEndpoint {
 
+//	@NonNull
+//	private final ResponseUtil responseUtil;
 	@NonNull
 	private EntryService entryservice;
 
@@ -49,8 +54,8 @@ public class EntrylogEndpoint {
 
 	@GetMapping("list")
 	public ResponseEntity<ResponseObject> list(
-		@RequestParam(name = "page", required = true) Integer page,
-		@RequestParam(name = "pageSize", required = true) Integer pageSize,
+		@RequestParam(name = "page" ) @Positive Integer page,
+		@RequestParam(name = "pageSize") @Positive Integer pageSize,
 		@RequestParam(name = "mood", required = false) Integer moodId,
 		@RequestParam(name = "desc", required = false) String descrition,
 		@RequestParam(name = "iniDtTime", required = false)
@@ -66,16 +71,4 @@ public class EntrylogEndpoint {
 	public ResponseEntity<ResponseObject> deleteEntry(@PathVariable Integer id) {
 		return createResponse(entryservice.deleteEntrylog(id));
 	}
-
-	private ResponseEntity<ResponseObject> createResponse(ResponseObject response) {
-
-		HttpStatus httpStatus = getStatus(response);
-
-		return new ResponseEntity<>(response, httpStatus);
-	}
-
-	private HttpStatus getStatus(ResponseObject response) {
-		return HttpStatus.OK;
-	}
-
 }

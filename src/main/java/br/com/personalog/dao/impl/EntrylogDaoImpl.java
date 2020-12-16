@@ -59,14 +59,14 @@ public class EntrylogDaoImpl implements EntrylogDaoQuery {
 			+ "WHERE (e.mood.id = :moodId OR :moodId IS NULL)"
 			+ "AND (e.description LIKE '%'||:description||'%' OR :description IS NULL)"
 			+ "AND (e.dateTime >= :initialDateTime OR :initialDateTime IS NULL)"
-			+ "AND (e.dateTime <= :finalDateTime OR :finalDateTime IS NULL)", List.class);
+			+ "AND (e.dateTime <= :finalDateTime OR :finalDateTime IS NULL)");
 		query.setParameter("moodId", moodId);
 		query.setParameter("description", description);
 		query.setParameter("initialDateTime", initialDateTime);
 		query.setParameter("finalDateTime", finalDateTime);
 		query.setFirstResult((pageNumber - 1) * pageSize);
 		query.setMaxResults(pageSize);
-		return query.getResultList();
+		return (List<Entrylog>) query.getResultList();
 	}
 
 	private void reatach(Object entity, Object detached) {
