@@ -45,7 +45,7 @@ public class Entrylog implements Serializable {
 	private LocalDateTime dtSave;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "mood_id")
+	@JoinColumn(name = "fk_mood")
 	//	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 	private Mood mood;
