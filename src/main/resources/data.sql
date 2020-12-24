@@ -1,16 +1,17 @@
 SET SCHEMA PERSONALOG;
 
     create table ENTRY_LOG (
-       id_entry integer identity primary key,
+        id_entry integer identity primary key,
+        fk_mood integer,
+        fk_user integer,
         dt_entry timestamp,
         ds_entry varchar(255),
         dt_save timestamp,
-        mood_id integer,
         primary key (id_entry)
     );
 
     create table MOOD (
-       id_mood integer identity primary key,
+        id_mood integer identity primary key,
         vl_hex_color varchar(255),
         ds_mood varchar(255),
         dt_save timestamp,
@@ -18,10 +19,26 @@ SET SCHEMA PERSONALOG;
         primary key (id_mood)
     );
 
+    create table USER (
+        id_user integer identity primary key,
+        nm_user_first varchar(255),
+        nm_user_last varchar(255),
+        password varchar(20),
+        email varchar(255),
+        ds_roles varchar(255),
+        dt_save timestamp,
+        primary key (id_user)
+    );
+
     alter table ENTRY_LOG
        add constraint fk_entrylog_mood
-       foreign key (mood_id)
+       foreign key (fk_mood)
        references mood;
+
+    alter table ENTRY_LOG
+       add constraint fk_entrylog_user
+       foreign key (fk_user)
+       references USER;
 
 insert
     into
