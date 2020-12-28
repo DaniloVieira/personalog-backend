@@ -5,7 +5,6 @@ import java.util.Objects;
 import br.com.personalog.dto.ResponseObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 
 public class ResponseUtil {
 
@@ -18,7 +17,7 @@ public class ResponseUtil {
 
 	static HttpStatus getStatus(ResponseObject response) {
 		if(Objects.nonNull(response.getResponseHttpType())){
-			HttpStatus.valueOf(response.getResponseHttpType().getCode());
+			return HttpStatus.valueOf(response.getResponseHttpType().getCode());
 		}
 		return HttpStatus.OK;
 	}

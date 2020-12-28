@@ -23,7 +23,7 @@ SET SCHEMA PERSONALOG;
         id_user integer identity primary key,
         nm_user_first varchar(255),
         nm_user_last varchar(255),
-        password varchar(20),
+        password varchar(255),
         email varchar(255),
         ds_roles varchar(255),
         dt_save timestamp,
@@ -39,6 +39,13 @@ SET SCHEMA PERSONALOG;
        add constraint fk_entrylog_user
        foreign key (fk_user)
        references USER;
+
+insert
+    into
+        personalog.user
+        (nm_user_first, nm_user_last, email, password, ds_roles)
+    values
+        ('Admin', 'Admin', 'admin@mail.com', '$2a$10$PWw.VGdOiYLDFose68Vht.t9BEy2dLcov8xCatz2dXNX.TPuoY48e', 'USER,ADMIN');
 
 insert
     into
