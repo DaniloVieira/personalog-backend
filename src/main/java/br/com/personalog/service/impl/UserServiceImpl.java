@@ -39,7 +39,8 @@ public class UserServiceImpl implements UserService {
 	public ResponseObject registerNewUserAccount(UserDTO user)  {
 		try {
 			validate(user);
-			return createResponse(userDao.save(createUser(user)), SUCCESS_MESSAGE, null);
+			userDao.save(createUser(user));
+			return createResponse(user, SUCCESS_MESSAGE, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return createResponse(user, ERROR_MESSAGE, e, ResponseHttpType.BAD_REQUEST);
