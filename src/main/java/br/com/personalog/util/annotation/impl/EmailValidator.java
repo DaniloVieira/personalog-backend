@@ -13,7 +13,6 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 	private static final Pattern PATTERN = Pattern.compile(EMAIL_PATTERN);
 	@Override
 	public void initialize(ValidEmail constraintAnnotation) {
-		System.out.println("INITIALAZING");
 	}
 	@Override
 	public boolean isValid(String email, ConstraintValidatorContext context){
