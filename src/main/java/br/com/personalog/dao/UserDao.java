@@ -11,5 +11,8 @@ public interface UserDao extends JpaRepository<User, Integer>, UserDaoQuery {
 	@Query(value = "SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.email = :email")
 	Boolean isEmailExists(@Param("email") String email);
 
+	@Query(value = "SELECT u FROM User u WHERE u.email = :email")
+	User findByEmail(@Param("email") String email);
+
 
 }

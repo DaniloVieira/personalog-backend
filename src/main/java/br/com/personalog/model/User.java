@@ -10,30 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.com.personalog.util.annotation.PasswordMatches;
-import br.com.personalog.util.annotation.ValidEmail;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Data
-@Getter
-@Setter
 @Entity
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@PasswordMatches
 @Table(name = "USER", schema = "PERSONALOG")
 public class User {
 
@@ -60,12 +52,6 @@ public class User {
 
 	@NotNull
 	@NotEmpty
-	@Transient
-	private String matchingPassword;
-
-	@NotNull
-	@NotEmpty
-	@ValidEmail
 	private String email;
 
 	@NotNull
@@ -77,15 +63,8 @@ public class User {
 	@Column(name = "dt_save")
 	private LocalDateTime dtSave;
 
-//	// TODO provisory
-//	public void setRoles(List<String> roles){
-//		//this.roles = roles.stream().collect(Collectors.joining(","));
-//		this.roles = String.join(",", roles);
-//	}
-//
-//	// TODO provisory
-//	public List<String> getRoles (){
-//		return Stream.of(roles.split(",", -1)).collect(Collectors.toList());
-//	}
+	public List<String> getRolesList (){
+		return Stream.of(roles.split(",", -1)).collect(Collectors.toList());
+	}
 
 }
