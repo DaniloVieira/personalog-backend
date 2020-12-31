@@ -33,7 +33,7 @@ public class Entrylog implements Serializable {
 	@Id
 	@Column(name = "id_entry")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(name = "ds_entry")
 	private String description;
 	//@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -41,7 +41,7 @@ public class Entrylog implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateTime;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name = "dt_save")
+	@Column(name = "dt_creation")
 	private LocalDateTime dtSave;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

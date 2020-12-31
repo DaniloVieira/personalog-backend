@@ -1,4 +1,4 @@
-package br.com.personalog.rest.endpoint;
+package br.com.personalog.util.misc;
 
 import java.util.Objects;
 
@@ -8,14 +8,14 @@ import org.springframework.http.ResponseEntity;
 
 public class ResponseUtil {
 
-	static ResponseEntity<ResponseObject> createResponse(ResponseObject response) {
+	public static ResponseEntity<ResponseObject> createResponse(ResponseObject response) {
 
 		HttpStatus httpStatus = getStatus(response);
 
-		return new ResponseEntity<ResponseObject>(response, httpStatus);
+		return new ResponseEntity<>(response, httpStatus);
 	}
 
-	static HttpStatus getStatus(ResponseObject response) {
+	public static HttpStatus getStatus(ResponseObject response) {
 		if(Objects.nonNull(response.getResponseHttpType())){
 			return HttpStatus.valueOf(response.getResponseHttpType().getCode());
 		}

@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,12 +30,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "USER", schema = "PERSONALOG")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = {"password"}, allowSetters = true)
 public class User {
 
 	@Id
 	@Column(name = "id_user")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@NotNull
 	@NotEmpty
@@ -63,8 +66,11 @@ public class User {
 	private String roles;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name = "dt_save")
-	private LocalDateTime dtSave;
+	@Column(name = "dt_creation")
+	private LocalDateTime dtcreation;
+
+	@Column(name = "fl_enabled")
+	private boolean enabled;
 
 	public List<String> getRolesList (){
 		return Stream.of(roles.split(",", -1)).collect(Collectors.toList());

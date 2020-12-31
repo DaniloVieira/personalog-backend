@@ -29,7 +29,7 @@ public class EntrylogDaoImpl implements EntrylogDaoQuery {
 
 	@Override
 	public Entrylog saveEntry(Entrylog entrylog) {
-		Integer moodId = Optional.ofNullable(entrylog.getMood()).orElse(new Mood()).getId();
+		Long moodId = Optional.ofNullable(entrylog.getMood()).orElse(new Mood()).getId();
 		if (Objects.nonNull(entrylog.getId())) {
 			Entrylog updated = findEntry(entrylog.getId());
 			updated.setDateTime(entrylog.getDateTime());
@@ -43,14 +43,14 @@ public class EntrylogDaoImpl implements EntrylogDaoQuery {
 	}
 
 	@Override
-	public Entrylog deleteEntry(Integer id) {
+	public Entrylog deleteEntry(long id) {
 		Entrylog removedEntry = findEntry(id);
 		entityManager.remove(removedEntry);
 		return removedEntry;
 	}
 
 	@Override
-	public Entrylog findEntry(Integer id) {
+	public Entrylog findEntry(long id) {
 		return entityManager.find(Entrylog.class, id);
 	}
 

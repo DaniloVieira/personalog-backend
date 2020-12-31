@@ -3,7 +3,7 @@ package br.com.personalog.dao.query;
 import br.com.personalog.model.Mood;
 
 public interface MoodDaoQuery {
-	Mood findMood(Integer id);
+	Mood findMood(long id);
 
-	Mood deleteMood(Integer id);
+	Mood deleteMood(long id);
 }

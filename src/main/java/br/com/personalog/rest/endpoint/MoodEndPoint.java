@@ -1,7 +1,6 @@
 package br.com.personalog.rest.endpoint;
 
 import br.com.personalog.dto.ResponseObject;
-import br.com.personalog.model.Entrylog;
 import br.com.personalog.model.Mood;
 import br.com.personalog.service.MoodService;
 import lombok.NonNull;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import static br.com.personalog.rest.endpoint.ResponseUtil.createResponse;
+import static br.com.personalog.util.misc.ResponseUtil.createResponse;
 
 @RestController
 @ResponseBody

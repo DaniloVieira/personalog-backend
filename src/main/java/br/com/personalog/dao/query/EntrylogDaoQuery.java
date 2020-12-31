@@ -9,9 +9,9 @@ public interface EntrylogDaoQuery {
 
 	Entrylog saveEntry(Entrylog entrylog);
 
-	Entrylog deleteEntry(Integer id);
+	Entrylog deleteEntry(long id);
 
-	Entrylog findEntry(Integer id);
+	Entrylog findEntry(long id);
 
 	List<Entrylog> obtainsPagedEntrylog(String description, LocalDateTime initialDateTime, LocalDateTime finalDateTime, Integer moodId, Integer page, Integer pageSize);
 }

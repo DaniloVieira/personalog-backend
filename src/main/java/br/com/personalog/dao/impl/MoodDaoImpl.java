@@ -3,7 +3,6 @@ package br.com.personalog.dao.impl;
 import javax.persistence.EntityManager;
 
 import br.com.personalog.dao.query.MoodDaoQuery;
-import br.com.personalog.model.Entrylog;
 import br.com.personalog.model.Mood;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +18,12 @@ public class MoodDaoImpl implements MoodDaoQuery {
 	private EntityManager entityManager;
 
 	@Override
-	public Mood findMood(Integer id) {
+	public Mood findMood(long id) {
 		return entityManager.find(Mood.class, id);
 	}
 
 	@Override
-	public Mood deleteMood(Integer id) {
+	public Mood deleteMood(long id) {
 		Mood removed = findMood(id);
 		entityManager.remove(removed);
 		return removed;
