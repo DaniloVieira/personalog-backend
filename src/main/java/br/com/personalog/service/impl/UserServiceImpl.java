@@ -2,6 +2,7 @@ package br.com.personalog.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import br.com.personalog.constant.ResponseHttpType;
@@ -14,6 +15,7 @@ import br.com.personalog.util.exception.UserAlreadyExistException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
 	@NonNull
 	private UserDao userDao;
+
+	@NonNull
+	private MessageSource message;
 
 //	@NonNull
 //	private BCryptPasswordEncoder encoder;
@@ -62,7 +67,8 @@ public class UserServiceImpl implements UserService {
 
 	private void validate(UserDTO user) throws UserAlreadyExistException {
 		if (userDao.isEmailExists(user.getEmail())) {
-			throw new UserAlreadyExistException("There is an account with that email address: "+user.getEmail(), null);//TODO implement the internationalization
+//			throw new UserAlreadyExistException("There is an account with that email address: "+user.getEmail(), null);//TODO implement the internationalization
+			throw new UserAlreadyExistException(message.getMessage("validation.exception.account.email.exists", new String[] { user.getEmail() }, Locale.ENGLISH), null);
 		}
 	}
 
