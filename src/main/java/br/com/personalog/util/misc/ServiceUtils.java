@@ -1,4 +1,4 @@
-package br.com.personalog.service.impl;
+package br.com.personalog.util.misc;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -10,10 +10,9 @@ import br.com.personalog.dto.ResponseObject;
 import br.com.personalog.dto.SingleResponseObject;
 
 public class ServiceUtils {
-	public ServiceUtils() {
-	}
 
-	static ResponseObject createResponse(Object response, ResponseMessage responseMessage, Exception e, ResponseHttpType responseHttpType) {
+
+	public static ResponseObject createResponse(Object response, ResponseMessage responseMessage, Exception e, ResponseHttpType responseHttpType) {
 		return new SingleResponseObject<Object>(response)
 			.responseHttpType(responseHttpType)
 			.message(responseMessage.getMsg())
@@ -21,11 +20,11 @@ public class ServiceUtils {
 			.cause(getRootCauseMessage(e));
 	}
 
-	static ResponseObject createResponse(Object response, ResponseMessage responseMessage, Exception e) {
+	public static ResponseObject createResponse(Object response, ResponseMessage responseMessage, Exception e) {
 		return createResponse(response, responseMessage, e, null);
 	}
 
-	static ResponseObject createResponse(Collection response, ResponseMessage responseMessage, Integer pageSize, Integer totalSize, Integer currentPage, Exception e, ResponseHttpType responseHttpType) {
+	public static ResponseObject createResponse(Collection response, ResponseMessage responseMessage, Integer pageSize, Integer totalSize, Integer currentPage, Exception e, ResponseHttpType responseHttpType) {
 		return new PagedResponseObject<Collection>(response)
 			.currentPage(currentPage)
 			.pageSize(pageSize)
@@ -36,7 +35,7 @@ public class ServiceUtils {
 			.cause(getRootCauseMessage(e));
 	}
 
-	static ResponseObject createResponse(Collection response, ResponseMessage responseMessage, Integer pageSize, Integer totalSize, Integer currentPage, Exception e) {
+	public static ResponseObject createResponse(Collection response, ResponseMessage responseMessage, Integer pageSize, Integer totalSize, Integer currentPage, Exception e) {
 		return createResponse(response, responseMessage, pageSize, totalSize, currentPage, e, null);
 	}
 

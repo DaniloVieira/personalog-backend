@@ -7,7 +7,7 @@ import br.com.personalog.model.Entrylog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface EntrylogDao extends JpaRepository<Entrylog, Integer>, EntrylogDaoQuery {
+public interface EntrylogDao extends JpaRepository<Entrylog, Long>, EntrylogDaoQuery {
 
 	//	@Query(value = "SELECT e FROM Entrylog e "
 	//		+ "WHERE (e.mood.id = :moodId OR :moodId IS NULL)"

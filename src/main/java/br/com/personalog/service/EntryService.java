@@ -1,18 +1,19 @@
 package br.com.personalog.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import br.com.personalog.dto.ResponseObject;
 import br.com.personalog.model.Entrylog;
 
 public interface EntryService {
 
-	ResponseObject saveEntrylog(Entrylog entrylog);
+	ResponseObject<Entrylog> saveEntrylog(Entrylog entrylog);
 
-	ResponseObject listByFilters(Integer moodId, String description, LocalDateTime initialDateTime, LocalDateTime finalDateTime, Integer page, Integer pageSize);
+	ResponseObject<List<Entrylog>> listByFilters(Integer moodId, String description, LocalDateTime initialDateTime, LocalDateTime finalDateTime, Integer page, Integer pageSize);
 
-	ResponseObject deleteEntrylog(Integer id);
+	ResponseObject<Entrylog> deleteEntrylog(long id);
 
-	ResponseObject listAll();
+	ResponseObject<List<Entrylog>> listAll();
 
 }

@@ -28,7 +28,7 @@ public class Mood implements Serializable {
 	@Id
 	@Column(name = "id_mood")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(name = "ds_mood")
 	private String description;
 	@Column(name = "vl_hex_color")
@@ -36,6 +36,6 @@ public class Mood implements Serializable {
 	@Column(name = "vl_presentation_order")
 	private Integer presentationOrder;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name = "dt_save")
+	@Column(name = "dt_creation")
 	private LocalDateTime dtSave;
 }
