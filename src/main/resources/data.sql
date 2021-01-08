@@ -28,7 +28,8 @@ SET SCHEMA PERSONALOG;
         ds_roles varchar(255),
         dt_creation timestamp,
         fl_enabled boolean default false,
-        primary key (id_user)
+        primary key (id_user),
+        unique (email)
     );
 
     create table VERIFICATION_TOKEN (

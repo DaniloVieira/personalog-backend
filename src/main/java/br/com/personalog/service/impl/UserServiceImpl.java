@@ -1,11 +1,16 @@
 package br.com.personalog.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.personalog.constant.ResponseHttpType;
+import br.com.personalog.constant.ResponseMessage;
 import br.com.personalog.dao.UserDao;
 import br.com.personalog.dao.VerificationTokenDAO;
 import br.com.personalog.dto.ResponseObject;
@@ -56,7 +61,7 @@ public class UserServiceImpl implements UserService {
 			return createResponse(userDao.save(newUser), SUCCESS_MESSAGE, null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return createResponse(newUser, ERROR_MESSAGE, e, ResponseHttpType.BAD_REQUEST);
+			return createResponse(newUser, ERROR_MESSAGE, null, e, ResponseHttpType.BAD_REQUEST);
 		}
 	}
 
@@ -74,9 +79,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createVerificationToken(User user, String token) {
-		VerificationToken myToken = new VerificationToken(user, token);
-		verificationTokenDAO.save(myToken);
+	public VerificationToken createVerificationToken(User user) {
+		VerificationToken myToken = new VerificationToken(user, UUID.randomUUID().toString());
+		return verificationTokenDAO.save(myToken);
 	}
 
 	@Override
@@ -88,11 +93,8 @@ public class UserServiceImpl implements UserService {
 		return verificationTokenDAO.findByToken(token);
 	}
 
-
-
 	private void validate(User user) throws UserAlreadyExistException {
 		if (userDao.isEmailExists(user.getEmail())) {
-//			throw new UserAlreadyExistException("There is an account with that email address: "+user.getEmail(), null);//TODO implement the internationalization
 			throw new UserAlreadyExistException(messages.getMessage("validation.exception.account.email.exists", new String[] { user.getEmail() }, Locale.ENGLISH), null);
 		}
 	}
@@ -122,18 +124,35 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String confirmRegistration(Locale locale, String token) {
-		VerificationToken verificationToken = this.getVerificationToken(token);
-		if (verificationToken == null) {
-			return messages.getMessage("auth.message.invalid.token", null, locale);
-		}
-		User user = verificationToken.getUser();
+	public ResponseObject confirmRegistration(Locale locale, String token) {
+		//TODO refactor the IFs
+		Map<String, String> respMap = new HashMap<>();
 		LocalDateTime now = LocalDateTime.now();
-		if ((verificationToken.getExpiryDate().compareTo(now)) <= 0) {
-			return messages.getMessage("auth.message.expired.token", null, locale);
+		VerificationToken verificationToken = this.getVerificationToken(token);
+		User user = verificationToken.getUser();
+		ResponseMessage responseMessage = ERROR_MESSAGE;
+		if (verificationToken == null) {
+			respMap.put("message", messages.getMessage("auth.message.invalid.token", null, locale));
+		}else if ((verificationToken.getExpiryDate().compareTo(now)) <= 0) {
+			respMap.put("message", messages.getMessage("auth.message.expired.token", null, locale));
+			respMap.put("expired", "true");
+			respMap.put("token", verificationToken.getToken());
+		}else{
+			user.setEnabled(true);
+			this.saveRegisteredUser(user);
+			respMap.put("message", messages.getMessage("auth.message.valid.token", null, locale));
+			responseMessage = SUCCESS_MESSAGE;
 		}
-		user.setEnabled(true);
-		this.saveRegisteredUser(user);
-		return messages.getMessage("auth.message.valid.token", null, locale);
+		return createResponse(respMap, responseMessage, "_token",null);
 	}
+
+	@Override
+	public VerificationToken generateNewVerificationToken(String existingToken) {
+		VerificationToken oldToken = verificationTokenDAO.findByToken(existingToken);
+		if(Objects.isNull(oldToken)) return null;//TODO refactor?
+		VerificationToken newToken = createVerificationToken(oldToken.getUser());
+		verificationTokenDAO.delete(oldToken);
+		return newToken;
+	}
+
 }

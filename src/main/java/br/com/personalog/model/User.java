@@ -58,6 +58,7 @@ public class User {
 
 	@NotNull
 	@NotEmpty
+	@Column(unique = true)
 	private String email;
 
 	@NotNull

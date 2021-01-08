@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		//super.configure(web);
 		http.authorizeRequests()
-			.antMatchers("/user/sign-up", "/sign-in/**", "/user/reg-confirm/**", "/h2/**")
+			.antMatchers("/user/sign-up", "/sign-in/**", "/user/reg-confirm/**", "/user/resendRegistrationToken/**", "/h2/**")
 			.permitAll()
 			.anyRequest()
 			.authenticated()

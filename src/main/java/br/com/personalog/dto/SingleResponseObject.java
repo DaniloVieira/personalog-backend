@@ -7,14 +7,14 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SingleResponseObject<T> extends ResponseObject<T> {
 
-	private T value;
+	//private T value;
 
 	public SingleResponseObject(T value) {
-		this.value = value;
+		super.value = value;
 	}
 
-	public String getType() {
-		return value != null ? "_" + value.getClass().getSimpleName().toLowerCase() : null;
-	}
+//	public String getType() {
+//		return value != null ? "_" + value.getClass().getSimpleName().toLowerCase() : null;
+//	}
 
 }

@@ -1,7 +1,6 @@
 package br.com.personalog.dto;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import br.com.personalog.constant.ResponseHttpType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,11 +10,14 @@ import lombok.Getter;
 @Getter
 public abstract class ResponseObject<T> {
 
+	protected T value;
 	private String message;
 	private String error;
 	private Exception e;
 	@JsonIgnore
 	private ResponseHttpType responseHttpType;
+	@JsonIgnore
+	private String strType ;
 
 	public ResponseObject<T> message(String message) {
 		this.message = message;
@@ -37,6 +39,11 @@ public abstract class ResponseObject<T> {
 		return this;
 	}
 
+	public ResponseObject<T> type(String strType) {
+		this.strType = strType;
+		return this;
+	}
+
 	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public LocalDateTime getTimestamp (){
 		return LocalDateTime.now();
@@ -47,8 +54,13 @@ public abstract class ResponseObject<T> {
 		return this.responseHttpType == null ? null : responseHttpType.getCode();
 	}
 
-	//	public String getType(){
-	//		return value != null ? "_" + value.getClass().getSimpleName().toLowerCase() : null;
-	//	}
-
+		public String getType(){
+			String returnValue = null;
+			if(strType != null){
+				returnValue = "_"+this.strType;
+			}else if (value != null ){
+				returnValue = "_" + value.getClass().getSimpleName().toLowerCase();
+			}
+			return returnValue;
+		}
 }

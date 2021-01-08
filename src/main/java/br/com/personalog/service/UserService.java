@@ -14,11 +14,13 @@ public interface UserService extends UserDetailsService {
 
 	User getUser(String verificationToken);
 
-	void createVerificationToken(User user, String token);
+	VerificationToken createVerificationToken(User user);
 
 	void saveRegisteredUser(User user);
 
 	VerificationToken getVerificationToken(String token);
 
-	String confirmRegistration(Locale locale, String token);
+	ResponseObject confirmRegistration(Locale locale, String token);
+
+	VerificationToken generateNewVerificationToken(String existingToken);
 }

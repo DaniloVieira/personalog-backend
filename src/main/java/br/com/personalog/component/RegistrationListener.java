@@ -1,9 +1,11 @@
 package br.com.personalog.component;
 
 import java.util.Locale;
-import java.util.UUID;
 
-import br.com.personalog.model.User;
+import javax.validation.constraints.Email;
+
+import br.com.personalog.model.VerificationToken;
+import br.com.personalog.service.EmailService;
 import br.com.personalog.service.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +23,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 	private UserService service;
 
 	@NonNull
-	private MessageSource messages;
-
-	@NonNull
-	private JavaMailSender mailSender;
+	private EmailService emailService;
 
 	@Override
 	public void onApplicationEvent(OnRegistrationCompleteEvent event) {
@@ -32,21 +31,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 	}
 
 	private void confirmRegistration(OnRegistrationCompleteEvent event) {
-		User user = event.getUser();
-		String token = UUID.randomUUID().toString();
-		service.createVerificationToken(user, token);
-
-		String recipientAddress = user.getEmail();
-		String subject = "Registration Confirmation";
-		String confirmationUrl
-			= event.getAppUrl() + "/user/reg-confirm?token=" + token;
-		//String message = messages.getMessage("validation.success.user.registration.token", null, event.getLocale());
-		String message = messages.getMessage("validation.success.user.registration.token", null, Locale.ENGLISH);
-
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setTo(recipientAddress);
-		email.setSubject(subject);
-		email.setText(message + "\r\n" + "http://localhost:8080" + confirmationUrl);
-		mailSender.send(email);
+		VerificationToken token = service.createVerificationToken(event.getUser());
+//		emailService.sendVerificationTokenEmail(token, event.getAppUrl(), event.getLocale());
+		emailService.sendVerificationTokenEmail(token, event.getAppUrl(), Locale.ENGLISH);//TODO remove when i18n is properlu implemented
 	}
 }
